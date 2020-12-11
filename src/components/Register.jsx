@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 
 import "../styles/App.css";
 
-class Register extends Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
