@@ -97,7 +97,7 @@ this.setState({
           <div className="name-field">
             <input
               type="text"
-              data-testid="name"
+              data-testid = 'name'
               name="name"
               placeholder="name"
               value={this.state.name}
@@ -108,10 +108,10 @@ this.setState({
           <div className="email-field">
   
             <input
-              type="email"
-              data-testid="name"
+              type="text"
+              data-testid = 'email'
               name="email"
-              placeholder="Email'@'"
+              placeholder="Email"
               value={this.state.email}
               onChange={this.handleChange}
               
@@ -120,7 +120,7 @@ this.setState({
           <div className="Gender-field">
            
             <input
-              data-testid="gender"
+             data-testid = 'gender'
               type="text"
               name="gender"
               placeholder="genger"
@@ -132,7 +132,7 @@ this.setState({
            
             <input
               type="text"
-              data-testid="phoneNumber"
+              data-testid = 'phoneNumber'
               name="number"
               placeholder="PhoneNumber"
               value={this.state.number}
@@ -143,8 +143,8 @@ this.setState({
           <div className="password-field">
   
             <input
-              data-testid="password"
-              type="password"
+              data-testid = 'password'
+              type='password'
               name="password"
               placeholder="Password"
               value={this.state.password}
@@ -153,7 +153,7 @@ this.setState({
             />
           </div>
           <div className="submit-field">
-            <button  data-testid="submit" onClick={this.handleSubmit} >Submit</button>
+            <button   data-testid = 'submit' onClick={this.handleSubmit} >Submit</button>
           </div>
   
       </div>
