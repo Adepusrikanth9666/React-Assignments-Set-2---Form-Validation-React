@@ -90,58 +90,63 @@ this.setState({
   render() {
     return (
       <div className="form-wraper">
+        <h1>Register Form</h1>
         {this.state.errorMessage && <div>{this.state.errorMessage}</div>}
         {this.state.userName && <div>Hello {this.state.userName}</div>}
-        <form onSubmit={this.handleSubmit} autoComplete="off">
+       
           <div className="name-field">
-            <label htmlFor="Name">Name</label>
             <input
               type="text"
               data-testid="name"
               name="name"
+              placeholder="name"
               value={this.state.name}
               onChange={this.handleChange}
            
             />
           </div>
           <div className="email-field">
-            <label htmlFor="Email">Email</label>
+  
             <input
               type="email"
               data-testid="name"
               name="email"
+              placeholder="Email'@'"
               value={this.state.email}
               onChange={this.handleChange}
               
             />
           </div>
           <div className="Gender-field">
-            <label htmlFor="Gender">Select Gender</label>
+           
             <input
               data-testid="gender"
               type="text"
               name="gender"
+              placeholder="genger"
               value={this.state.gender}
               onChange={this.handleChange}
             />
           </div>
           <div className="number-field">
-            <label htmlFor="Phone Number">Phone Number</label>
+           
             <input
               type="text"
               data-testid="phoneNumber"
               name="number"
+              placeholder="PhoneNumber"
               value={this.state.number}
               onChange={this.handleChange}
              
             />
           </div>
           <div className="password-field">
-            <label htmlFor="Password">Password</label>
+  
             <input
               data-testid="password"
               type="password"
               name="password"
+              placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
           
@@ -150,7 +155,7 @@ this.setState({
           <div className="submit-field">
             <button  data-testid="submit" onClick={this.handleSubmit} >Submit</button>
           </div>
-        </form>
+  
       </div>
     );
   }
