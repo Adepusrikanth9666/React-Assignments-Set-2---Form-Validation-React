@@ -90,7 +90,6 @@ this.setState({
   render() {
     return (
       <div className="form-wraper">
-        <h1>Register Form</h1>
         {this.state.errorMessage && <div>{this.state.errorMessage}</div>}
         {this.state.userName && <div>Hello {this.state.userName}</div>}
         <form onSubmit={this.handleSubmit} autoComplete="off">
@@ -148,13 +147,8 @@ this.setState({
           
             />
           </div>
-          <div className="info">
-            <small>Password must be six characters in length.</small>
-          </div>
-
           <div className="submit-field">
             <button  data-testid="submit" onClick={this.handleSubmit} >Submit</button>
-             
           </div>
         </form>
       </div>
