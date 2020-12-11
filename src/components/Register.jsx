@@ -31,7 +31,7 @@ return;
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+    // const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
     const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
     const myRegExPh= /^\d+$/;
     
@@ -52,7 +52,7 @@ return;
 
 
     }
-    if(!validEmailRegex.test(this.state.email)){
+    if(this.state.email.indexOf("@") < 1){
       this.setState({errorMessage:"Email must contain @",userName:""});
       return;
     }
