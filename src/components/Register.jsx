@@ -9,7 +9,7 @@ class RegisterForm extends React.Component {
       name: "",
       email: "",
       gender: "male",
-      number: "",
+      phNo: "",
       password: "",
       errorsMessage: "",
       userName: ""
@@ -17,75 +17,128 @@ class RegisterForm extends React.Component {
   }
 
   handleChange = (event) => {
-    
-    if(event.target.name==="gender"){
-this.setState({[event.target.name]:(event.target.value).toLowerCase()});
-return;
-    }
-    else{
+  
     this.setState({ [event.target.name]: event.target.value });
     return;
-    }
+    
     
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    // const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-    const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
-    const myRegExPh= /^\d+$/;
+//   handleSubmit = (event) => {
+//     event.preventDefault();
+//     // const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+//     const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
+//     const myRegExPh= /^\d+$/;
     
 
-    if (
-      this.state.name === "" ||
-      this.state.email === "" ||
-      this.state.gender === "" ||
-      this.state.number === "" ||
-      this.state.password === ""
-    ) {
-this.setState({errorMessage:"All fields are mandatory",userName:""});
-return;
-    }
-    if(!myRegEx.test(this.state.name)){
-      this.setState({errorMessage:"Name is not alphanumeric",userName:""});
-      return;
+//     if (
+//       this.state.name === "" ||
+//       this.state.email === "" ||
+//       this.state.gender === "" ||
+//       this.state.number === "" ||
+//       this.state.password === ""
+//     ) {
+// this.setState({errorMessage:"All fields are mandatory",userName:""});
+// return;
+//     }
+//     if(!myRegEx.test(this.state.name)){
+//       this.setState({errorMessage:"Name is not alphanumeric",userName:""});
+//       return;
 
 
-    }
-    if(this.state.email.indexOf("@") < 1){
-      this.setState({errorMessage:"Email must contain @",userName:""});
-      return;
-    }
-    if(!(this.state.gender==="male"||this.state.gender==="female"||this.state.gender==="others")){
-      this.setState({errorMessage:"Please identify as male, female or others",userName:""});
-      return;
-    }
+//     }
+//     if(this.state.email.indexOf("@") < 1){
+//       this.setState({errorMessage:"Email must contain @",userName:""});
+//       return;
+//     }
+//     if(!(this.state.gender==="male"||this.state.gender==="female"||this.state.gender==="others")){
+//       this.setState({errorMessage:"Please identify as male, female or others",userName:""});
+//       return;
+//     }
 
 
-    if(!myRegExPh.test(this.state.number)){
-      this.setState({errorMessage:"Phone Number must contain only numbers",userName:""});
-      return;
-    }
-    if(this.state.password.length<6){
+//     if(!myRegExPh.test(this.state.number)){
+//       this.setState({errorMessage:"Phone Number must contain only numbers",userName:""});
+//       return;
+//     }
+//     if(this.state.password.length<6){
 
-      this.setState({errorMessage:"Password must contain atleast 6 letters",userName:""});
-      return;
+//       this.setState({errorMessage:"Password must contain atleast 6 letters",userName:""});
+//       return;
 
 
-    }
+//     }
 
-    const user = this.state.email.substring(0, this.state.email.indexOf("@"));
-this.setState({
-      userName:user,
-      errorMessage: "",
-      name: "",
-      email: "",
-      gender: "male",
-      number: "",
-      password: ""
+//     const user = this.state.email.substring(0, this.state.email.indexOf("@"));
+// this.setState({
+//       userName:user,
+//       errorMessage: "",
+//       name: "",
+//       email: "",
+//       gender: "male",
+//       number: "",
+//       password: ""
+//     });
+
+//   };
+handleChange = (event) => {
+  this.setState({ [event.target.name]: event.target.value });
+};
+
+handleSubmit = () => {
+  const alphanumeric = /^[0-9a-zA-Z ]+$/;
+  const numbers = /^\d+$/;
+  if (
+    this.state.name === "" ||
+    this.state.email === "" ||
+    this.state.phNo === "" ||
+    this.state.gender === "" ||
+    this.state.password === ""
+  ) {
+    this.setState({ errorMessage: "All fields are mandatory", userName: "" });
+    return;
+  }
+  if (!this.state.name.match(alphanumeric)) {
+    this.setState({ errorMessage: "Name is not alphanumeric", userName: "" });
+    return;
+  }
+  if (this.state.email.indexOf("@") < 1) {
+    this.setState({ errorMessage: "Email must contain @", userName: "" });
+    return;
+  }
+
+  if (!this.state.gender) {
+    this.setState({
+      errorMessage: "Please identify as male, female or others",
+      userName: ""
     });
-
-  };
+    return;
+  }
+  if (!numbers.test(this.state.phNo)) {
+    this.setState({
+      errorMessage: "Phone Number must contain only numbers",
+      userName: ""
+    });
+    return;
+  }
+  if (this.state.password.length < 6) {
+    this.setState({
+      errorMessage: "Password must contain atleast 6 letters",
+      userName: ""
+    });
+    return;
+  }
+  const user = this.state.email.substring(0, this.state.email.indexOf("@"));
+  this.setState({
+    userName: user,
+    errorMessage: "",
+    name: "",
+    email: "",
+    gender: "male",
+    phNo: "",
+    password: ""
+  });
+};
 
   render() {
     return (
@@ -133,9 +186,9 @@ this.setState({
             <input
               type="text"
               data-testid = 'phoneNumber'
-              name="number"
+              name="phNo"
               placeholder="PhoneNumber"
-              value={this.state.number}
+              value={this.state.phNo}
               onChange={this.handleChange}
              
             />
