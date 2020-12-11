@@ -21,3 +21,7 @@ div{
 label{
     margin: 5px;
 }
+input[type=submit] { 
+    position: relative; 
+    float: right; 
+} 

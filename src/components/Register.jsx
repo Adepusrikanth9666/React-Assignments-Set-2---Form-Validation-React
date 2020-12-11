@@ -4,141 +4,158 @@ import "../styles/App.css";
 
 class Register extends Component {
   constructor(props) {
-      super(props);
-        this.state = {
-          name: null,
-          email: null,
-          gender:"Male",
-          number:null,
-          password: null,
-          errors: {
-            name: '',
-            email: '',
-            gender:'',
-            number:'',
-            password: ''
-
-          }
-        }
-this.handleChange = this.handleChange.bind(this);
-this.handleSubmit=this.handleSubmit.bind(this);
-// this.validateForm=this.validateForm.bind(this);
-// this.valid = this.valid.bind(this);
-}
-
- 
-
-
-handleChange=(event)=>{
-  // event.preventDefault();
-  console.log(event.target);
-  const {name,value}=event.target;
-  console.log(name,value);
-const errors = this.state.errors;
-// console.log(error+"er");
-const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
-const myRegExPh= /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
-
-
-
-switch(name){
-  case 'name':errors.name = !(myRegEx.test(value))? 'Name is not alphanumeric': '';
-                break;
-
-  case 'email': errors.email = validEmailRegex.test(value)? '': 'Email must contain @';
-               break;
-
-  case 'password': errors.password = value.length < 6? 'Password must contain atleast 6 letters': '';
-                   break;
-  
-  case 'gender':errors.gender=value?"":"Please identify as male, female or others";
-              break;
-
-  case 'number':errors.number=myRegExPh.test(value)?'':'Phone Number must contain only numbers'
-                break;
-
-  default:
-    break;
-}
-this.setState({errors, [name]: value}, ()=> {
-  console.log(errors,name,value);
-  console.log(this.state);
-})
-
-
-
-} 
-
- handleSubmit = (event) => {
-  event.preventDefault();
-
-  const validateForm = (errors) => {
-   let valid = true;
-    Object.values(errors).forEach(
-      // if we have an error string set valid to false
-      (val) => {val.length > 0 && (valid = false);
-      console.log(val);
-      });
-      console.log(valid);
-    return (valid);
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      gender: "male",
+      number: "",
+      password: "",
+      errorsMessage: "",
+      userName: ""
+    };
   }
 
-  
-  if(validateForm(this.state.errors)) {
-    console.info('Valid Form')
-  }else{
-    console.error('Invalid Form')
-  }
-}
-  
+  handleChange = (event) => {
+    
+    if(event.target.name==="gender"){
+this.setState({[event.target.name]:(event.target.value).toLowerCase()});
+return;
+    }
+    else{
+    this.setState({ [event.target.name]: event.target.value });
+    return;
+    }
+    
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+    const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
+    const myRegExPh= /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+    
+
+    if (
+      this.state.name === "" ||
+      this.state.email === "" ||
+      this.state.gender === "" ||
+      this.state.number === "" ||
+      this.state.password === ""
+    ) {
+this.setState({errorMessage:"All fields are mandatory",userName:""});
+return;
+    }
+    if(!myRegEx.test(this.state.name)){
+      this.setState({errorMessage:"Name is not alphanumeric",userName:""});
+      return;
 
 
+    }
+    if(!validEmailRegex.test(this.state.email)){
+      this.setState({errorMessage:"Email must contain @",userName:""});
+      return;
+    }
+    if(!(this.state.gender==="male"||this.state.gender==="female"||this.state.gender==="others")){
+      this.setState({errorMessage:"Please identify as male, female or others",userName:""});
+      return;
+    }
 
 
+    if(!myRegExPh.test(this.state.number)){
+      this.setState({errorMessage:"Phone Number must contain only numbers",userName:""});
+      return;
+    }
+    if(this.state.password.length<6){
 
+      this.setState({errorMessage:"Password must contain atleast 6 letters",userName:""});
+      return;
+
+
+    }
+
+    const user = this.state.email.substring(0, this.state.email.indexOf("@"));
+this.setState({
+      userName:user,
+      errorMessage: "",
+      name: "",
+      email: "",
+      gender: "male",
+      number: "",
+      password: ""
+    });
+
+  };
 
   render() {
     return (
       <div className="form-wraper">
         <h1>Register Form</h1>
-        <form onSubmit={this.handleSubmit} novalidation="true">
+        {this.state.errorMessage && <div>{this.state.errorMessage}</div>}
+        {this.state.userName && <div>Hello {this.state.userName}</div>}
+        <form onSubmit={this.handleSubmit} autoComplete="off">
           <div className="name-field">
             <label htmlFor="Name">Name</label>
-            <input type="text" data-testid="name" name='name' onChange={this.handleChange}  novalidation="true" />
+            <input
+              type="text"
+              data-testid="name"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+           
+            />
           </div>
           <div className="email-field">
             <label htmlFor="Email">Email</label>
-            <input type="email" data-testid="name" name='email' onChange={this.handleChange} novalidation="true"  />
+            <input
+              type="email"
+              data-testid="name"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+              
+            />
           </div>
           <div className="Gender-field">
             <label htmlFor="Gender">Select Gender</label>
-            <select  data-testid="gender" name='gender' onChange={this.handleChange} >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Others">Others</option>
-            </select>
+            <input
+              data-testid="gender"
+              type="text"
+              name="gender"
+              value={this.state.gender}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="number-field">
             <label htmlFor="Phone Number">Phone Number</label>
-            <input type="text" data-testid="phoneNumber"  name='number'onChange={this.handleChange} novalidation="true"  />
+            <input
+              type="text"
+              data-testid="phoneNumber"
+              name="number"
+              value={this.state.number}
+              onChange={this.handleChange}
+             
+            />
           </div>
           <div className="password-field">
             <label htmlFor="Password">Password</label>
-            <input data-testid = 'password' type='password'  name='password' onChange={this.handleChange}  novalidation="true" />
+            <input
+              data-testid="password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+          
+            />
           </div>
-          <div className='info'>
-              <small>Password must be six characters in length.</small>
-            </div>
+          <div className="info">
+            <small>Password must be six characters in length.</small>
+          </div>
 
           <div className="submit-field">
-            
-           <input data-testid = 'submit'  type="submit" />
+            <button  data-testid="submit" onClick={this.handleSubmit} >Submit</button>
+             
           </div>
-          <div>{this.valid}</div>
-          
-          
-         
         </form>
       </div>
     );
