@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 
 import "../styles/App.css";
 
-class Register extends React.Component {
+class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -161,4 +161,4 @@ this.setState({
   }
 }
 
-export default Register;
+export default RegisterForm;
