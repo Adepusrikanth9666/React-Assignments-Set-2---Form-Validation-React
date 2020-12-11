@@ -33,7 +33,7 @@ return;
     event.preventDefault();
     const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
     const myRegEx  = /^([a-zA-Z0-9 _-]+)$/;
-    const myRegExPh= /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+    const myRegExPh= /^\d+$/;
     
 
     if (
